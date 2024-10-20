@@ -1,3 +1,31 @@
+import pandas as pd
+import numpy as np
+
+# Simular datos
+np.random.seed(42)
+estaciones = ['A', 'B', 'C', 'D', 'E', 'F']
+clima = ['soleado', 'lluvioso', 'nublado']
+horario = ['mañana', 'tarde', 'noche']
+dia_semana = ['laborable', 'fin de semana']
+
+# Generar el dataset
+data = {
+    'origen': np.random.choice(estaciones, 100),
+    'destino': np.random.choice(estaciones, 100),
+    'tiempo_viaje_min': np.random.randint(5, 60, size=100),
+    'hora_del_dia': np.random.choice(horario, 100),
+    'dia_semana': np.random.choice(dia_semana, 100),
+    'clima': np.random.choice(clima, 100)
+}
+
+df = pd.DataFrame(data)
+# Filtrar para que origen y destino no sean iguales
+df = df[df['origen'] != df['destino']]
+
+print(df.head())
+# Guardar el dataset en un archivo CSV
+df.to_csv('datos_transporte.csv', index=False)
+
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import LabelEncoder
